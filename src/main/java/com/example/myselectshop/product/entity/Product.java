@@ -1,10 +1,13 @@
 package com.example.myselectshop.product.entity;
 
+import com.example.myselectshop.folder.entity.ProductFolder;
 import com.example.myselectshop.naver.dto.ItemDto;
 import com.example.myselectshop.product.dto.ProductMypriceRequestDto;
 import com.example.myselectshop.product.dto.ProductRequestDto;
 import com.example.myselectshop.user.entity.User;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +40,9 @@ public class Product extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductFolder> productFolderList = new ArrayList<>();
 
     public Product(ProductRequestDto requestDto, User user) {
         super();

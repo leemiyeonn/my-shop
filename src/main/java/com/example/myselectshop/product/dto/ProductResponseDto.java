@@ -1,6 +1,10 @@
 package com.example.myselectshop.product.dto;
 
+import com.example.myselectshop.folder.dto.FolderResponseDto;
+import com.example.myselectshop.folder.entity.ProductFolder;
 import com.example.myselectshop.product.entity.Product;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,11 +13,18 @@ import lombok.NoArgsConstructor;
 public class ProductResponseDto {
 
     private Long id;
+
     private String title;
+
     private String link;
+
     private String image;
+
     private int lprice;
+
     private int myprice;
+
+    private List<FolderResponseDto> productFolderList = new ArrayList<>();
 
     public ProductResponseDto(Product product) {
         this.id = product.getId();
@@ -22,5 +33,9 @@ public class ProductResponseDto {
         this.image = product.getImage();
         this.lprice = product.getLprice();
         this.myprice = product.getMyprice();
+        for (ProductFolder productFolder : product.getProductFolderList()) {
+            productFolderList.add(new FolderResponseDto(productFolder.getFolder()));
+        }
     }
+
 }
