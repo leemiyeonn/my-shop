@@ -6,6 +6,7 @@ import com.example.myselectshop.product.dto.ProductRequestDto;
 import com.example.myselectshop.product.dto.ProductResponseDto;
 import com.example.myselectshop.product.entity.Product;
 import com.example.myselectshop.product.repository.ProductRepository;
+import com.example.myselectshop.user.entity.User;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,17 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<ProductResponseDto> getProducts() {
+    public List<ProductResponseDto> getProducts(User user) {
+        List<Product> productList = productRepository.findALlByUser(user);
+        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+
+        for (Product product : productList) {
+            responseDtoList.add(new ProductResponseDto(product));
+        }
+        return responseDtoList;
+    }
+
+    public List<ProductResponseDto> getAllProducts() {
         List<Product> productList = productRepository.findAll();
         List<ProductResponseDto> responseDtoList = new ArrayList<>();
 
@@ -32,8 +43,8 @@ public class ProductService {
         return responseDtoList;
     }
 
-    public ProductResponseDto createProduct(ProductRequestDto requestDto) {
-        Product product = productRepository.save(new Product(requestDto));
+    public ProductResponseDto createProduct(ProductRequestDto requestDto, User user) {
+        Product product = productRepository.save(new Product(requestDto, user));
         return new ProductResponseDto(product);
     }
 

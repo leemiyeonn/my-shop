@@ -1,4 +1,4 @@
-package com.example.myselectshop.utils;
+package com.example.myselectshop.utils.scheduler;
 
 import com.example.myselectshop.naver.dto.ItemDto;
 import com.example.myselectshop.naver.service.NaverApiService;
